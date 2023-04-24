@@ -5,8 +5,8 @@ and testing.
 
 from snowflake.snowpark.session import Session
 from snowflake.snowpark.dataframe import col, DataFrame
-from snowflake.snowpark.types import StringType
-
+from snowflake.snowpark.types import StringType, StructType, StructField
+from snowflake.snowpark.functions import concat
 
 def run(snowpark_session: Session) -> int:
     """
@@ -14,17 +14,7 @@ def run(snowpark_session: Session) -> int:
     console, and returns the number of rows in the table.
     """
 
-    # Register UDF
-    from src.udf.functions import combine
-
-    snowpark_session.add_import(
-        path="../src/udf/functions.py", import_path="src.udf.functions"
-    )
-    combine = snowpark_session.udf.register(
-        combine, StringType(), input_types=[StringType(), StringType()]
-    )
-
-    schema = ["col_1", "col_2"]
+    schema = StructType([StructField("col_1", StringType()), StructField("col_2", StringType())])
 
     data = [
         ("Welcome to ", "Snowflake!"),
@@ -33,7 +23,7 @@ def run(snowpark_session: Session) -> int:
 
     df: DataFrame = snowpark_session.create_dataframe(data, schema)
 
-    df2 = df.select(combine(col("col_1"), col("col_2")).as_("Hello world")).sort(
+    df2 = df.select(concat(df["col_1"],df["col_2"]).as_("Hello world")).sort(
         "Hello world", ascending=False
     )
 
