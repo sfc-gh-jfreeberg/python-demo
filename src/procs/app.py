@@ -34,10 +34,6 @@ def run(snowpark_session: Session) -> int:
 if __name__ == "__main__":
     # This entrypoint is used for local development.
 
-    import sys
-
-    sys.path.insert(0, "..")  # Necessary to import from udf and util directories
-
     from src.util.local import get_env_var_config
 
     print("Creating session...")

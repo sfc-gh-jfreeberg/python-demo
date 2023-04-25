@@ -1,15 +1,9 @@
-import os
+
 import pytest
 from snowflake.snowpark.session import Session
 from snowflake.snowpark.types import StringType
 from src.util.local import get_env_var_config
 from src.procs.app import run
-
-
-@pytest.fixture(autouse=True)
-def set_working_directory():
-    # Sets the working directory to sources root so relative imports resolve properly
-    os.chdir("src")
 
 
 @pytest.fixture

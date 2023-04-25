@@ -81,7 +81,6 @@ You should see the following output:
 You can run the test suite locally from the project root:
 
 ```
-pip install -r requirements-test.txt
 python -m pytest
 ```
 
