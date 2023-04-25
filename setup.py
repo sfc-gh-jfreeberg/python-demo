@@ -1,3 +1,7 @@
+"""
+Run `python setup.py install` after activating the Conda environment.
+"""
+
 from setuptools import setup, find_packages
 
 setup(

@@ -4,7 +4,7 @@ and testing.
 """
 
 from snowflake.snowpark.session import Session
-from snowflake.snowpark.dataframe import col, DataFrame
+from snowflake.snowpark.dataframe import DataFrame
 from snowflake.snowpark.types import StringType, StructType, StructField
 from snowflake.snowpark.functions import concat
 
@@ -23,7 +23,7 @@ def run(snowpark_session: Session) -> DataFrame:
 
     df: DataFrame = snowpark_session.create_dataframe(data, schema)
 
-    df2 = df.select(concat(df["col_1"],df["col_2"]).as_("Hello world")).sort(
+    df2 = df.select(concat(df["col_1"],df["col_2"]).as_("Hello_world")).sort(
         "Hello world", ascending=False
     )
 
@@ -40,6 +40,4 @@ if __name__ == "__main__":
     session = Session.builder.configs(get_env_var_config()).create()
 
     print("Running stored proc...")
-    df = run(session)
-
-    df.show()
+    run(session)
