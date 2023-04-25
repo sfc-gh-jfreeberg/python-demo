@@ -12,7 +12,7 @@ def local_session():
 
 
 @pytest.mark.snowflake_vcr
-def test_app_dim(local_session):
-    expected_n_rows = 2
-    actual_n_rows = run(local_session)
-    assert expected_n_rows == actual_n_rows
+def test_app_sproc(local_session):
+    expected_df = local_session.create_dataframe(["Welcome to Snowflake!", "Learn more: https://www.snowflake.com/snowpark/"]).toDF("Hello world")
+    actual_df = run(local_session)
+    assert expected_df.collect() == actual_df.collect()

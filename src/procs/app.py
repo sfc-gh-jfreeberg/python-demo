@@ -8,7 +8,7 @@ from snowflake.snowpark.dataframe import col, DataFrame
 from snowflake.snowpark.types import StringType, StructType, StructField
 from snowflake.snowpark.functions import concat
 
-def run(snowpark_session: Session) -> int:
+def run(snowpark_session: Session) -> DataFrame:
     """
     A sample stored procedure which creates a small DataFrame, prints it to the
     console, and returns the number of rows in the table.
@@ -28,7 +28,7 @@ def run(snowpark_session: Session) -> int:
     )
 
     df2.show()
-    return df2.count()
+    return df2
 
 
 if __name__ == "__main__":
@@ -40,4 +40,6 @@ if __name__ == "__main__":
     session = Session.builder.configs(get_env_var_config()).create()
 
     print("Running stored proc...")
-    run(session)
+    df = run(session)
+
+    df.show()
