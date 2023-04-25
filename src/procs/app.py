@@ -24,7 +24,7 @@ def run(snowpark_session: Session) -> DataFrame:
     df: DataFrame = snowpark_session.create_dataframe(data, schema)
 
     df2 = df.select(concat(df["col_1"],df["col_2"]).as_("Hello_world")).sort(
-        "Hello world", ascending=False
+        "Hello_world", ascending=False
     )
 
     df2.show()
