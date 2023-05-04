@@ -20,6 +20,7 @@ def run(snowpark_session: Session) -> DataFrame:
         ("Welcome to ", "Snowflake!"),
         ("Learn more: ", "https://www.snowflake.com/snowpark/"),
     ]
+    
 
     df: DataFrame = snowpark_session.create_dataframe(data, schema)
 
