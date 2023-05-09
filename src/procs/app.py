@@ -13,6 +13,7 @@ def run(snowpark_session: Session) -> DataFrame:
     A sample stored procedure which creates a small DataFrame, prints it to the
     console, and returns the number of rows in the table.
     """
+    from src.udf.functions import identity
 
     schema = StructType([StructField("col_1", StringType()), StructField("col_2", StringType())])
 
@@ -20,15 +21,13 @@ def run(snowpark_session: Session) -> DataFrame:
         ("Welcome to ", "Snowflake!"),
         ("Learn more: ", "https://www.snowflake.com/snowpark/"),
     ]
-    
 
     df: DataFrame = snowpark_session.create_dataframe(data, schema)
 
     df2 = df.select(concat(df["col_1"],df["col_2"]).as_("Hello_world")).sort(
         "Hello_world", ascending=False
-    )
+    ).with_column("copy", identity("Hello_world"))
 
-    df2.show()
     return df2
 
 

@@ -15,7 +15,7 @@ env:
   SNOWSQL_DATABASE: ${{ secrets.SNOWSQL_DATABASE }}
   SNOWSQL_SCHEMA: ${{ secrets.SNOWSQL_SCHEMA }}
   SNOWSQL_WAREHOUSE: ${{ secrets.SNOWSQL_WAREHOUSE }}
-  ARTIFACT_NAME: python-sources-${{ github.ref_name }}.zip
+  ARTIFACT_NAME: dist/Example_Snowpark_Python_project-0.1.0-py3-none-any.whl
 
 jobs:
   build:
@@ -36,7 +36,9 @@ jobs:
         run: python -m pytest 
       
       - name: Create deployment artifact
-        run: zip -r ${{ env.ARTIFACT_NAME }} . -x .git/\* 
+        run: |
+          pip install build
+          python -m build
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2

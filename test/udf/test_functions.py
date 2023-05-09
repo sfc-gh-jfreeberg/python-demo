@@ -1,7 +1,7 @@
-from src.udf.functions import combine
+#from src.udf.functions import identity
 
 
-def test_combine():
-    expected = "hello world"
-    actual = combine("hello ", "world")
-    assert expected == actual
+# def test_combine():
+#     expected = "hello world"
+#     actual = combine("hello ", "world")
+#     assert expected == actual

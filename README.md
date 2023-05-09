@@ -1,3 +1,11 @@
+# Deployment steps
+
+```bash
+conda env create -f environment.yaml --force
+pip install build
+python -m build
+```
+
 # Python Project Template for Snowpark
 
 Use this template to start writing data applications on Snowflake using Python.
