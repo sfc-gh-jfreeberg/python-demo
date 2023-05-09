@@ -15,7 +15,7 @@ env:
   SNOWSQL_DATABASE: ${{ secrets.SNOWSQL_DATABASE }}
   SNOWSQL_SCHEMA: ${{ secrets.SNOWSQL_SCHEMA }}
   SNOWSQL_WAREHOUSE: ${{ secrets.SNOWSQL_WAREHOUSE }}
-  ARTIFACT_NAME: dist/Example_Snowpark_Python_project-0.1.0-py3-none-any.whl
+  ARTIFACT_NAME: Example_Snowpark_Python_project-0.1.0-py3-none-any.whl
 
 jobs:
   build:
@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: python-sources-${{ github.ref_name }}
-          path: ${{ env.ARTIFACT_NAME }}
+          path: dist/${{ env.ARTIFACT_NAME }}
   
   deploy:
     runs-on: ubuntu-latest
@@ -62,6 +62,9 @@ jobs:
         run: |
           curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.24-linux_x86_64.bash
           SNOWSQL_DEST=~/snowflake SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.24-linux_x86_64.bash
+
+      - run: ls
+      - run: ls -a
 
       - name: Deploy jobs
         run: |
