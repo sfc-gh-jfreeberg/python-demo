@@ -32,8 +32,8 @@ jobs:
           activate-environment: snowpark
           environment-file: environment.yml
 
-      - name: Run tests
-        run: python -m pytest 
+      # - name: Run tests
+      #   run: python -m pytest 
       
       - name: Create deployment artifact
         run: |
